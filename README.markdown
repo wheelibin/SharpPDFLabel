@@ -39,7 +39,7 @@ Adding more labels
 Extra labels are simply added by deriving from the `Label` class like so:
 (all dimensions and margins are specified in mm)
 
-  namespace SharpPDFLabel.Labels.A4Labels.Avery
+	namespace SharpPDFLabel.Labels.A4Labels.Avery
 	{
 		public class L7160 : Label
 		{
