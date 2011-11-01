@@ -1,6 +1,0 @@
-X:\source\git\SharpPDFLabel\obj\Debug\ResolveAssemblyReference.cache
-X:\source\git\SharpPDFLabel\bin\Debug\SharpPDFLabel.dll
-X:\source\git\SharpPDFLabel\bin\Debug\SharpPDFLabel.pdb
-X:\source\git\SharpPDFLabel\bin\Debug\itextsharp.dll
-X:\source\git\SharpPDFLabel\obj\Debug\SharpPDFLabel.dll
-X:\source\git\SharpPDFLabel\obj\Debug\SharpPDFLabel.pdb
