@@ -1,9 +1,7 @@
 About
 =====
 
-
-
-#### This (C#) library allows you to create sheets of identical labels (such as Avery labels) using .NET which get created as a PDF document.
+### This (C#) library allows you to create sheets of identical labels (such as Avery labels) using .NET which get created as a PDF document.
 
 The code uses iTextSharp to create the PDFs (http://sourceforge.net/projects/itextsharp/).
 
