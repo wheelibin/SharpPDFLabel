@@ -5,13 +5,13 @@ using System.Text;
 
 namespace SharpPDFLabel.Labels.A4Labels.Avery
 {
+    /// <summary>
+    /// Dimensions: 63.5mm x 38.1mm 
+    /// Per Sheet: 21 per sheet 
+    /// Inkjet code: J8160
+    /// </summary>
     public class L7160 : Label
     {
-        /// <summary>
-        /// Dimensions: 63.5mm x 38.1mm 
-        /// Per Sheet: 21 per sheet 
-        /// Inkjet code: J8160
-        /// </summary>
         public L7160()
         {
             _Width = 63.5;
