@@ -8,7 +8,7 @@ The code uses iTextSharp to create the PDFs (http://sourceforge.net/projects/ite
 Usage
 =====
 
-  // Create the required label
+	// Create the required label
 	var label = new SharpPDFLabel.Labels.A4Labels.Avery.L7654();
 
 	// Create a LabelCreator, passing the required label
