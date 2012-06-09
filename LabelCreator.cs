@@ -24,6 +24,8 @@ namespace SharpPDFLabel
 
         public LabelCreator(Label label)
         {
+			FontFactory.RegisterDirectories(); //Register all local fonts
+			
             _label = label;
             _images = new List<byte[]>();
             _textChunks = new List<TextChunk>();
