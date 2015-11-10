@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpPDFLabel", "SharpPDFLabel.csproj", "{8FAF2C96-5EAE-469F-A6F0-EDF627E85BC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpPDFLabel.Tests", "SharpPDFLabel.Tests\SharpPDFLabel.Tests.csproj", "{EEDE86F6-5C72-49B2-85EE-4EA6E54096C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{8FAF2C96-5EAE-469F-A6F0-EDF627E85BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FAF2C96-5EAE-469F-A6F0-EDF627E85BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FAF2C96-5EAE-469F-A6F0-EDF627E85BC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEDE86F6-5C72-49B2-85EE-4EA6E54096C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEDE86F6-5C72-49B2-85EE-4EA6E54096C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEDE86F6-5C72-49B2-85EE-4EA6E54096C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEDE86F6-5C72-49B2-85EE-4EA6E54096C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
