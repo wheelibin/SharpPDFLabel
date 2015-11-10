@@ -59,6 +59,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="packages\iTextSharp.5.5.7\iTextSharp.5.5.7.nupkg" />
+    <None Include="packages\repositories.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages\iTextSharp.5.5.7\AGPL.txt" />
+    <Content Include="packages\iTextSharp.5.5.7\lib\itextsharp.dll" />
+    <Content Include="packages\iTextSharp.5.5.7\lib\iTextSharp.xml" />
+    <Content Include="packages\iTextSharp.5.5.7\notice.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
