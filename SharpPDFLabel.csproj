@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="itextsharp">
-      <HintPath>C:\Users\jon\Documents\Source Code\CloudTill\packages\iTextSharp.5.1.1\lib\itextsharp.dll</HintPath>
+    <Reference Include="itextsharp, Version=5.5.7.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\iTextSharp.5.5.7\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,9 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums.cs" />
     <Compile Include="Label.cs" />
     <Compile Include="LabelCreator.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="LabelDefinition.cs" />
+    <Compile Include="SingleSheetLabelCreator.cs" />
     <Compile Include="Labels\A4Labels\Avery\L7160.cs" />
     <Compile Include="Labels\A4Labels\Avery\L7654.cs" />
     <Compile Include="Labels\A4Labels\Avery\L7656.cs" />

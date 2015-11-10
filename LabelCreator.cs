@@ -13,66 +13,32 @@ namespace SharpPDFLabel
     /// </summary>
     public class LabelCreator
     {
-        private Label _label;
-        private List<byte[]> _images;
-        private List<TextChunk> _textChunks;
+        private LabelDefinition _labelDefinition;
+        private List<Label> _labels;
 
         /// <summary>
         /// Useful for debugging the formatting if needed
         /// </summary>
         public bool IncludeLabelBorders { get; set; }
 
-        public LabelCreator(Label label)
+        public LabelCreator(LabelDefinition label)
         {
 			FontFactory.RegisterDirectories(); //Register all local fonts
 			
-            _label = label;
-            _images = new List<byte[]>();
-            _textChunks = new List<TextChunk>();
+            _labelDefinition = label;
+            _labels = new List<Label>();
             IncludeLabelBorders = false;
         }
 
         /// <summary>
-        /// Add an image to the labels
-        /// Currently adds images and then text in that specific order
+        /// Add a label to the collection
         /// </summary>
-        /// <param name="img"></param>
-        public void AddImage(Stream img)
+        /// <param name="label"></param>
+        public void AddLabel(Label label)
         {
-            var mem = new MemoryStream();
-            CopyStream(img, mem);
-            _images.Add(mem.GetBuffer());
+            _labels.Add(label);
         }
-        private void CopyStream(Stream input, Stream output)
-        {
-            byte[] b = new byte[32768];
-            int r;
-            while ((r = input.Read(b, 0, b.Length)) > 0)
-                output.Write(b, 0, r);
-        }
-        
 
-        /// <summary>
-        /// Add a chunk of text to the labels
-        /// </summary>
-        /// <param name="text">The text to add e.g "I am on a label"</param>
-        /// <param name="fontName">The name of the font e.g. "Verdana"</param>
-        /// <param name="fontSize">The font size in points e.g. 12</param>
-        /// <param name="embedFont">If the font you are using may not be on the target machine, set this to true</param>
-        /// <param name="fontStyles">An array of required font styles</param>
-        public void AddText(string text, string fontName, int fontSize, bool embedFont = false, params Enums.FontStyle[] fontStyles )
-        {
-            int fontStyle = 0;
-            if (fontStyles != null)
-            {
-                foreach (var item in fontStyles)
-                {
-                    fontStyle += (int)item;
-                }
-            }
-            
-            _textChunks.Add(new TextChunk() { Text = text, FontName = fontName, FontSize = fontSize, FontStyle = fontStyle, EmbedFont = embedFont });
-        }
         
         
         /// <summary>
@@ -85,7 +51,7 @@ namespace SharpPDFLabel
 
             //Get the itext page size
             Rectangle pageSize;
-            switch (_label.PageSize)
+            switch (_labelDefinition.PageSize)
             {
                 case Enums.PageSize.A4:
                     pageSize = iTextSharp.text.PageSize.A4;
@@ -97,10 +63,10 @@ namespace SharpPDFLabel
 
             //Create a new iText document object, define the paper size and the margins required
             var doc = new Document(pageSize, 
-                                   _label.PageMarginLeft, 
-                                   _label.PageMarginRight, 
-                                   _label.PageMarginTop, 
-                                   _label.PageMarginBottom);
+                                   _labelDefinition.PageMarginLeft, 
+                                   _labelDefinition.PageMarginRight, 
+                                   _labelDefinition.PageMarginTop, 
+                                   _labelDefinition.PageMarginBottom);
 
             //Create a stream to write the PDF to
             var output = new MemoryStream();
@@ -115,8 +81,8 @@ namespace SharpPDFLabel
             doc.Open();
 
             //Create a new table with label and gap columns
-            var numOfCols = _label.LabelsPerRow + (_label.LabelsPerRow - 1);
-            var tbl = new PdfPTable(numOfCols);
+            var numOfCols = _labelDefinition.LabelsPerRow + (_labelDefinition.LabelsPerRow - 1);
+           // var tbl = new PdfPTable(numOfCols);
 
             //Build the column width array, even numbered index columns will be gap columns
             var colWidths = new List<float>();
@@ -124,12 +90,12 @@ namespace SharpPDFLabel
             {
                 if (i % 2 > 0)
                 {
-                    colWidths.Add(_label.Width);
+                    colWidths.Add(_labelDefinition.Width);
                 }
                 else
                 {
                     //Even numbered columns are gap columns
-                    colWidths.Add(_label.HorizontalGapWidth);
+                    colWidths.Add(_labelDefinition.HorizontalGapWidth);
                 }
             }
 
@@ -140,74 +106,81 @@ namespace SharpPDFLabel
             var h = iTextSharp.text.PageSize.A4.Height - (doc.TopMargin + doc.BottomMargin);
             var size = new iTextSharp.text.Rectangle(w, h);
 
-            //Set the column widths (in points) - take note of the size parameter mentioned above
-            tbl.SetWidthPercentage(colWidths.ToArray(), size);
 
-            //Create the rows for the table
-            for (int iRow = 0; iRow < _label.LabelRowsPerPage; iRow++)
+            var cellsPerPage = _labelDefinition.LabelRowsPerPage * _labelDefinition.LabelsPerRow;
+            // loop over the labels
+
+            var rowNumber = 0;
+            var colNumber = 0;
+
+
+            PdfPTable tbl = null;
+            List<PdfPCell> rowCells = null;
+            foreach (var label in _labels)
             {
-
-                var rowCells = new List<PdfPCell>();
-
-                //Build the row - even numbered index columns are gaps
-                for (int iCol = 1; iCol <= numOfCols; iCol++)
+                if (rowNumber == 0)
                 {
-                    if (iCol % 2 > 0)
-                    {
-
-                        // Create a new Phrase and add the image to it
-                        var cellContent = new Phrase();
-
-                        foreach (var img in _images)
-                        {
-                            var pdfImg = iTextSharp.text.Image.GetInstance(img);
-                            cellContent.Add(new Chunk(pdfImg, 0, 0));
-                        }
-
-                        foreach (var txt in _textChunks)
-                        {
-                            var font = FontFactory.GetFont(txt.FontName, BaseFont.CP1250, txt.EmbedFont, txt.FontSize, txt.FontStyle);
-                            cellContent.Add(new Chunk("\n" + txt.Text, font));
-                        }
-                        
-                        //Create a new cell specifying the content
-                        var cell = new PdfPCell(cellContent);
-
-                        //Ensure our label height is adhered to
-                        cell.FixedHeight = _label.Height;
-
-                        //Centre align the content
-                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                        cell.Border = IncludeLabelBorders ? Rectangle.BOX : Rectangle.NO_BORDER;
-
-                        //Add to the row
-                        rowCells.Add(cell);
-                    }
-                    else
-                    {
-                        //Create a empty cell to use as a gap
-                        var gapCell = new PdfPCell();
-                        gapCell.FixedHeight = _label.Height;
-                        gapCell.Border = Rectangle.NO_BORDER;
-                        //Add to the row
-                        rowCells.Add(gapCell);
-                    }
+                    tbl = new PdfPTable(numOfCols);
+                    tbl.SetWidthPercentage(colWidths.ToArray(), size);
+                    rowCells = new List<PdfPCell>();
+                    rowNumber = 1; // so we start with row 1
                 }
+                colNumber++; // so we start with col 1
 
-                //Add the new row to the table
-                tbl.Rows.Add(new PdfPRow(rowCells.ToArray()));
+                // add the label cell.
+                var cell = label.GetLabelCell();
+
+                //Ensure our label height is adhered to
+                cell.FixedHeight = _labelDefinition.Height;
+
+                //Centre align the content
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                cell.Border = IncludeLabelBorders ? Rectangle.BOX : Rectangle.NO_BORDER;
+
+                //Add to the row
+                rowCells.Add(cell);
+
+                //Create a empty cell to use as a gap
+                var gapCell = new PdfPCell();
+                gapCell.FixedHeight = _labelDefinition.Height;
+                gapCell.Border = Rectangle.NO_BORDER;
+                //Add to the row
+                rowCells.Add(gapCell);
 
                 //On all but the last row, add a gap row if needed
-                if ((iRow + 1) < _label.LabelRowsPerPage && _label.VerticalGapHeight > 0)
+                if ((rowNumber) < _labelDefinition.LabelRowsPerPage && _labelDefinition.VerticalGapHeight > 0)
                 {
                     tbl.Rows.Add(CreateGapRow(numOfCols));
                 }
 
+                
+                if (colNumber == _labelDefinition.LabelsPerRow)
+                {
+                    // add the row to the table and re-initialize
+                    tbl.Rows.Add(new PdfPRow(rowCells.ToArray()));
+                    rowCells = new List<PdfPCell>();
+
+                    rowNumber++;
+                    colNumber = 0;
+                }
+
+                
+                if (rowNumber > _labelDefinition.LabelRowsPerPage)
+                {
+                    //Add the table to the document
+                    doc.Add(tbl);
+                    rowNumber = 0;
+                }
+
             }
 
-            //Add the table to the document
-            doc.Add(tbl);
+            // make sure the last table gets added to the document
+            if (rowNumber > 0)
+            {
+                //Add the table to the document
+                doc.Add(tbl);
+            }
 
             //Close the document, writing to the stream we specified earlier
             doc.Close();
@@ -226,7 +199,7 @@ namespace SharpPDFLabel
             for (int i = 0; i < numOfCols; i++)
 			{
                 var cell = new PdfPCell();
-                cell.FixedHeight = _label.VerticalGapHeight;
+                cell.FixedHeight = _labelDefinition.VerticalGapHeight;
                 cell.Border = Rectangle.NO_BORDER;
                 cells.Add(cell);
 			}

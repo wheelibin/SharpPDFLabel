@@ -10,7 +10,7 @@ namespace SharpPDFLabel.Labels.A4Labels.Avery
     /// Per Sheet: 40 per sheet 
     /// Inkjet code: J8654
     /// </summary>
-    public class L7654 : Label
+    public class L7654 : LabelDefinition
     {
         public L7654()
         {
