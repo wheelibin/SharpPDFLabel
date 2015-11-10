@@ -13,7 +13,7 @@ namespace SharpPDFLabel.Tests
         {
 
             var labelDefinition = new L5160();
-            var labelCreator = new SharpPDFLabel.LabelCreator(labelDefinition);
+            var labelCreator = new SharpPDFLabel.CustomLabelCreator(labelDefinition);
             labelCreator.IncludeLabelBorders = true;
 
             for (var i = 1; i <= 30; i++)
