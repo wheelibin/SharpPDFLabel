@@ -12,7 +12,7 @@ namespace SharpPDFLabel
     {
         private List<byte[]> _images;
         private List<TextChunk> _textChunks;
-        private Enums.Alignment _align;
+        private Enums.Alignment _hAlign;
 
         /// sets align to CENTER
         public Label()
@@ -20,12 +20,12 @@ namespace SharpPDFLabel
         {
         }
 
-        /// <param name="align">LEFT, CENTER, RIGHT</param>
-        public Label(Enums.Alignment align)
+        /// <param name="hAlign">horizontal alignment: LEFT, CENTER, RIGHT</param>
+        public Label(Enums.Alignment hAlign)
         {
             _images = new List<byte[]>();
             _textChunks = new List<TextChunk>();
-            _align = align;
+            _hAlign = hAlign;
         }
 
 
@@ -48,7 +48,7 @@ namespace SharpPDFLabel
 
             //Create a new cell specifying the content
             var cell = new PdfPCell(cellContent);
-            cell.HorizontalAlignment = (int)_align;
+            cell.HorizontalAlignment = (int)_hAlign;
             cell.VerticalAlignment = Element.ALIGN_TOP;
 
             return cell;

@@ -22,13 +22,17 @@ namespace SharpPDFLabel
         /// </summary>
         public bool IncludeLabelBorders { get; set; }
 
-        public SingleSheetLabelCreator(LabelDefinition labelDefinition)
+        public SingleSheetLabelCreator(LabelDefinition labelDefinition, Enums.Alignment hAlign)
         {
 			FontFactory.RegisterDirectories(); //Register all local fonts
             _labelDefinition = labelDefinition;
             _creator = new CustomLabelCreator(labelDefinition);
-            _label = new Label();
+            _label = new Label(hAlign);
             IncludeLabelBorders = false;
+        }
+
+        public SingleSheetLabelCreator(LabelDefinition labelDefinition) : this(labelDefinition, Enums.Alignment.CENTER)
+        {
         }
 
         /// <summary>
