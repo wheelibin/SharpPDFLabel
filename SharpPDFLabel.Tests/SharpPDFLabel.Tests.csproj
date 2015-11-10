@@ -50,7 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="LabelCreatorTests.cs" />
+    <Compile Include="SingleSheetLabelCreatorTests.cs" />
+    <Compile Include="CustomLabelCreatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

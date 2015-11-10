@@ -21,11 +21,11 @@ namespace SharpPDFLabel
         /// </summary>
         public bool IncludeLabelBorders { get; set; }
 
-        public CustomLabelCreator(LabelDefinition label)
+        public CustomLabelCreator(LabelDefinition labelDefinition)
         {
 			FontFactory.RegisterDirectories(); //Register all local fonts
-			
-            _labelDefinition = label;
+
+            _labelDefinition = labelDefinition;
             _labels = new List<Label>();
             IncludeLabelBorders = false;
         }

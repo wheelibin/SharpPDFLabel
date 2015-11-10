@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Label.cs" />
-    <Compile Include="LabelCreator.cs" />
+    <Compile Include="CustomLabelCreator.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="LabelDefinition.cs" />
     <Compile Include="Labels\A4Labels\Avery\L5160.cs" />

@@ -6,7 +6,7 @@ using System.IO;
 namespace SharpPDFLabel.Tests
 {
     [TestClass]
-    public class LabelCreatorTests
+    public class CustomLabelCreatorTests
     {
         [TestMethod]
         public void TestCreateAPdf()
