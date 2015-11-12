@@ -6,9 +6,18 @@ About
 There are two ways to use this library. The first is to create sheets of identical labels. The second
 lets you specify each individual label that will be injected into the sheet(s)
 
-The code uses iTextSharp to create the PDFs. You can reference iTextSharp using NuGet - I advise you to avoid sourceforge 
+The code uses iTextSharp to create the PDFs. You can reference iTextSharp using NuGet - I advise you to avoid sourceforge
 
-#### Usage Case 1 - Sheet of Identical Labels 
+
+### Table of Contents
+* <a href="#sameLabels">Sheet of Repeated Identical Labels</a>
+* <a href="#uniqueLabels">Sheet of Individual Labels</a>
+* <a href="#definingLabelDefs">Create New Label Definitions</a>
+
+
+ 
+
+#### Usage Case 1 - Sheet of Repeated Identical Labels  <a name="sameLabels"></a>
 ```cs
 
 	// Create the required labelDefinition
@@ -46,7 +55,7 @@ I did make one optional change though - by default the labels generated this way
 
 
 
-#### Usage Case 2 - Sheet of Individual Labels 
+#### Usage Case 2 - Sheet of Individual Labels  <a name="uniqueLabels"></a>
 ```cs
 
 	// Create the required label
@@ -80,9 +89,8 @@ I did make one optional change though - by default the labels generated this way
 	return new FileStreamResult(pdfStream, "application/pdf");
 ```
 
-#### Adding more label definitions
-
-Extra labels are simply added by deriving from the `LabelDefinition` class like so:
+#### Create New Label Definitions<a name="definingLabelDefs"></a>
+A label definition is a class that provides the layout specifications for a label. Extra label definitions are simply added by deriving from the `LabelDefinition` class like so:
 
 (all dimensions and margins are specified in mm)
 ```cs
