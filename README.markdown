@@ -10,14 +10,14 @@ The code uses iTextSharp to create the PDFs. You can reference iTextSharp using 
 
 
 ### Table of Contents
-* <a href="#sameLabels">Sheet of Repeated Identical Labels</a>
-* <a href="#uniqueLabels">Sheet of Individual Labels</a>
+* <a href="#sameLabels">Single Sheet of Repeated Identical Labels</a>
+* <a href="#uniqueLabels">Sheet(s) of Individual Labels</a>
 * <a href="#definingLabelDefs">Create New Label Definitions</a>
 
 
  
 
-#### Usage Case 1 - Sheet of Repeated Identical Labels  <a name="sameLabels"></a>
+#### Usage Case 1 - Single Sheet of Repeated Identical Labels  <a name="sameLabels"></a>
 ```cs
 
 	// Create the required labelDefinition
@@ -55,7 +55,7 @@ I did make one optional change though - by default the labels generated this way
 
 
 
-#### Usage Case 2 - Sheet of Individual Labels  <a name="uniqueLabels"></a>
+#### Usage Case 2 - Sheet(s) of Individual Labels  <a name="uniqueLabels"></a>
 ```cs
 
 	// Create the required label
