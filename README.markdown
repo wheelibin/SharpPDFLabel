@@ -32,6 +32,20 @@ The code uses iTextSharp to create the PDFs. You can reference iTextSharp using 
 	return new FileStreamResult(pdfStream, "application/pdf");
 ```
 
+**NOTE**: I rewrote the way the original use case (1) works behind the scense but the API for it remains unchanged to stay backward compatible with anyone using the source project.
+
+I did make one optional change though - by default the labels generated this way center everything. You can optionally specify the horizontal alignment like so:
+
+```cs
+
+	// Create a SingleSheetLabelCreator, passing the required label
+	var singleSheetLabelCreator = new SharpPDFLabel.SingleSheetLabelCreator(label, Enums.Alignment.LEFT);
+	
+```
+
+
+
+
 #### Usage Case 2 - Sheet of Individual Labels 
 ```cs
 
@@ -49,6 +63,7 @@ The code uses iTextSharp to create the PDFs. You can reference iTextSharp using 
 
     foreach (var person in personCollection)
     {
+		// you can specify LEFT, RIGHT, or CENTER for the horizontal alignment during Label construction
         var label = new Label(Enums.Alignment.LEFT);
         label.AddText(person.fullName, "Verdana", 12, embedFont: true);
         label.AddText(person.address.address1, "Verdana", 12, embedFont: true);
