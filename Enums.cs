@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iTextSharp.text;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,7 +34,12 @@ namespace SharpPDFLabel
             UNDERLINE = 4,
         }
 
-        
+        public enum Alignment
+        {
+            LEFT = Element.ALIGN_LEFT,
+            CENTER = Element.ALIGN_CENTER,
+            RIGHT = Element.ALIGN_RIGHT
+        }
 
     }
 }

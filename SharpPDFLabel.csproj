@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="itextsharp">
-      <HintPath>C:\Users\jon\Documents\Source Code\CloudTill\packages\iTextSharp.5.1.1\lib\itextsharp.dll</HintPath>
+    <Reference Include="itextsharp, Version=5.5.7.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.7\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,9 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums.cs" />
     <Compile Include="Label.cs" />
-    <Compile Include="LabelCreator.cs" />
+    <Compile Include="CustomLabelCreator.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="LabelDefinition.cs" />
+    <Compile Include="Labels\A4Labels\Avery\L5160.cs" />
+    <Compile Include="SingleSheetLabelCreator.cs" />
     <Compile Include="Labels\A4Labels\Avery\L7160.cs" />
     <Compile Include="Labels\A4Labels\Avery\L7654.cs" />
     <Compile Include="Labels\A4Labels\Avery\L7656.cs" />
@@ -55,6 +59,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="packages\iTextSharp.5.5.7\iTextSharp.5.5.7.nupkg" />
+    <None Include="packages\repositories.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages\iTextSharp.5.5.7\AGPL.txt" />
+    <Content Include="packages\iTextSharp.5.5.7\lib\itextsharp.dll" />
+    <Content Include="packages\iTextSharp.5.5.7\lib\iTextSharp.xml" />
+    <Content Include="packages\iTextSharp.5.5.7\notice.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
