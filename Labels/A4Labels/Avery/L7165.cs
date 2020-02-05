@@ -9,6 +9,8 @@ namespace SharpPDFLabel.Labels.A4Labels.Avery
     {
         public L7165()
         {
+
+            // LL8 Parcel Label
             _Width = 100;
             _Height = 67;
             _HorizontalGapWidth = 2.5;
