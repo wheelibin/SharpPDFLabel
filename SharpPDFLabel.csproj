@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="itextsharp">
-      <HintPath>C:\Users\jon\Documents\Source Code\CloudTill\packages\iTextSharp.5.1.1\lib\itextsharp.dll</HintPath>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,6 +48,7 @@
     <Compile Include="Label.cs" />
     <Compile Include="LabelCreator.cs" />
     <Compile Include="Labels\A4Labels\Avery\L7160.cs" />
+    <Compile Include="Labels\A4Labels\Avery\L7165.cs" />
     <Compile Include="Labels\A4Labels\Avery\L7654.cs" />
     <Compile Include="Labels\A4Labels\Avery\L7656.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
